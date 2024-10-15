@@ -3,12 +3,14 @@ class Laptop {
     private double price;
     private int ram;
     private String processor;
+    private int hdd;
 
-    public Laptop(String brand, double price, int ram, String processor) {
+    public Laptop(String brand, double price, int ram, String processor, int hdd) {
         this.brand = brand;
         this.price = price;
         this.ram = ram;
         this.processor = processor;
+        this.hdd = hdd;
     }
 
     public String getBrand() {
@@ -27,13 +29,18 @@ class Laptop {
         return processor;
     }
 
+    public int getHdd() {
+        return hdd;
+    }
+
     @Override
     public String toString() {
         return "Laptop{" +
                 "brand='" + brand + '\'' +
                 ", price=" + price +
-                ", ram=" + ram +
+                ", ram=" + ram + " GB" +
                 ", processor='" + processor + '\'' +
+                ", hdd='" + hdd + " GB " + '\'' +
                 '}';
     }
 }

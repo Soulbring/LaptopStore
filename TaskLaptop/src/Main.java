@@ -5,13 +5,12 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 
-
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Map<String, String> filterCriteria = new HashMap<>();
 
-        System.out.print("Введите критерий фильтрации (например, brand, price, ram, processor): ");
+        System.out.print("Введите критерий фильтрации (например, brand, price, ram, processor, hdd): ");
         String key = scanner.nextLine();
         System.out.print("Введите значение для критерия " + key + ": ");
         String value = scanner.nextLine();
@@ -19,10 +18,10 @@ public class Main {
         filterCriteria.put(key, value);
 
         List<Laptop> laptops = List.of(
-                new Laptop("Dell", 800, 8, "Intel i5"),
-                new Laptop("HP", 600, 8, "AMD Ryzen 5"),
-                new Laptop("Apple", 1200, 16, "M1"),
-                new Laptop("Asus", 700, 8, "Intel i7")
+                new Laptop("Dell", 800, 8, "Intel i5", 500),
+                new Laptop("HP", 600, 8, "AMD Ryzen 5", 1000),
+                new Laptop("Apple", 1200, 16, "M1", 500),
+                new Laptop("Asus", 700, 8, "Intel i7", 2000)
         );
 
         List<Laptop> filteredLaptops = filterLaptops(laptops, filterCriteria);
@@ -30,7 +29,6 @@ public class Main {
         System.out.println("Ноутбуки, соответствующие критерию: ");
         filteredLaptops.forEach(System.out::println);
     }
-
     private static List<Laptop> filterLaptops(List<Laptop> laptops, Map<String, String> criteria) {
         return laptops.stream().filter(laptop -> {
             for (Map.Entry<String, String> entry : criteria.entrySet()) {
@@ -49,6 +47,9 @@ public class Main {
                     case "processor":
                         if (!laptop.getProcessor().equalsIgnoreCase(value)) return false;
                         break;
+                    case "hdd":
+                        if (laptop.getHdd() != Integer.parseInt(value)) return false;
+                        break;
                     default:
                         System.out.println("Неизвестный критерий фильтрации: " + key);
                         return false;
@@ -57,4 +58,5 @@ public class Main {
             return true;
         }).collect(Collectors.toList());
     }
+
 }
